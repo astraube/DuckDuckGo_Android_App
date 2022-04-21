@@ -175,6 +175,7 @@ import com.duckduckgo.app.statistics.isFireproofExperimentEnabled
 import com.duckduckgo.app.utils.ConflatedJob
 import com.duckduckgo.app.widget.AddWidgetLauncher
 import com.duckduckgo.appbuildconfig.api.AppBuildConfig
+import com.duckduckgo.autofill.BrowserAutofill
 import com.duckduckgo.di.scopes.FragmentScope
 import com.duckduckgo.voice.api.VoiceSearchLauncher
 import com.duckduckgo.voice.api.VoiceSearchLauncher.Source.BROWSER
@@ -266,6 +267,9 @@ class BrowserTabFragment :
 
     @Inject
     lateinit var emailInjector: EmailInjector
+
+    @Inject
+    lateinit var browserAutofill: BrowserAutofill
 
     @Inject
     lateinit var faviconManager: FaviconManager
@@ -1454,6 +1458,7 @@ class BrowserTabFragment :
             loginDetector.addLoginDetection(it) { viewModel.loginDetected() }
             blobConverterInjector.addJsInterface(it) { url, mimeType -> viewModel.requestFileDownload(url, null, mimeType, true) }
             emailInjector.addJsInterface(it) { viewModel.showEmailTooltip() }
+            browserAutofill.addBrowserAutofillInterface(it)
         }
 
         if (appBuildConfig.isDebug) {
