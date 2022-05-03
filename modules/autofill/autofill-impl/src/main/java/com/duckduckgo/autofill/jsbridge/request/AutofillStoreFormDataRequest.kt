@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 DuckDuckGo
+ * Copyright (c) 2022 DuckDuckGo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'com.squareup.anvil'
-    id 'kotlin-android-extensions'
-}
+package com.duckduckgo.autofill.jsbridge.request
 
-apply from: "$rootProject.projectDir/gradle/android-library.gradle"
+data class AutofillStoreFormDataRequest(
+    val credentials: AutofillStoreFormDataCredentialsRequest
+)
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-dependencies {
-    implementation Kotlin.stdlib.jdk7
-    implementation project(path: ':common')
-    implementation project(path: ':common-ui')
-    implementation Google.android.material
-}
-
+data class AutofillStoreFormDataCredentialsRequest(
+    val username: String,
+    val password: String
+)
